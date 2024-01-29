@@ -21,8 +21,8 @@ class Dataset_Loader(dataset):
         f = open(self.dataset_source_folder_path + self.dataset_source_file_name, 'r')
         for line in f:
             line = line.strip('\n')
-            elements = [int(i) for i in line.split(' ')]
-            X.append(elements[:-1])
-            y.append(elements[-1])
+            elements = [int(i) for i in line.split(',')]
+            X.append(elements[1:])
+            y.append(elements[0])
         f.close()
         return {'X': X, 'y': y}
