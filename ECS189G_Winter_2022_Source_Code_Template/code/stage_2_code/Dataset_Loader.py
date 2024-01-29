@@ -5,7 +5,7 @@ Concrete IO class for a specific dataset
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from src_code.base_class.dataset import dataset
+from code.base_class.dataset import dataset
 class Dataset_Loader(dataset):
     data = None
     dataset_source_folder_path = None
