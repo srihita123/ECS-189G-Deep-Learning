@@ -15,9 +15,11 @@ import numpy as np
 class Method_MLP(method, nn.Module):
     data = None
     # it defines the max rounds to train the model
-    max_epoch = 100
+    max_epoch = 70
     # it defines the learning rate for gradient descent based optimizer for model learning
-    learning_rate = 1e-3
+    learning_rate = 2e-3
+    # defines momentum hyperparameter
+    momentum = 0.9
 
     # it defines the the MLP model architecture, e.g.,
     # how many layers, size of variables in each layer, activation function, etc.
@@ -27,12 +29,13 @@ class Method_MLP(method, nn.Module):
         nn.Module.__init__(self)
         # check here for nn.Linear doc: https://pytorch.org/docs/stable/generated/torch.nn.Linear.html
         # training data has 784 features
-        self.fc_layer_1 = nn.Linear(784, 30)
+        self.fc_layer_1 = nn.Linear(784, 50)
         # check here for nn.ReLU doc: https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html
         self.activation_func_1 = nn.ReLU()
         # training data label has 10 classes from {0, 1, ..., 9}
-        self.fc_layer_2 = nn.Linear(30, 10)
+        self.fc_layer_2 = nn.Linear(50, 10)
         # check here for nn.Softmax doc: https://pytorch.org/docs/stable/generated/torch.nn.Softmax.html
+        # we do softmax along dim=1 to get the normalized classification probability distributions for each instance
         self.activation_func_2 = nn.Softmax(dim=1)
 
     # it defines the forward propagation function for input x
@@ -41,12 +44,11 @@ class Method_MLP(method, nn.Module):
     def forward(self, x):
         '''Forward propagation'''
         # hidden layer embeddings
-        h = self.activation_func_1(self.fc_layer_1(x))
+        h1 = self.activation_func_1(self.fc_layer_1(x))
         # outout layer result
         # self.fc_layer_2(h) will be a nx2 tensor
         # n (denotes the input instance number): 0th dimension; 2 (denotes the class number): 1st dimension
-        # we do softmax along dim=1 to get the normalized classification probability distributions for each instance
-        y_pred = self.activation_func_2(self.fc_layer_2(h))
+        y_pred = self.activation_func_2(self.fc_layer_2(h1))
         return y_pred
 
     # backward error propagation will be implemented by pytorch automatically
@@ -80,7 +82,7 @@ class Method_MLP(method, nn.Module):
             # update the variables according to the optimizer and the gradients calculated by the above loss.backward function
             optimizer.step()
 
-            if epoch%10 == 0:
+            if epoch%2 == 0:
                 accuracy_evaluator.data = {'true_y': y_true, 'pred_y': y_pred.max(1)[1]}
                 print('Epoch:', epoch, 'Accuracy:', accuracy_evaluator.evaluate(), 'Loss:', train_loss.item())
     
