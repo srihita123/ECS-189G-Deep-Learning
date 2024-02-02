@@ -10,12 +10,13 @@ from code.stage_1_code.Evaluate_Accuracy import Evaluate_Accuracy
 import torch
 from torch import nn
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 class Method_MLP(method, nn.Module):
     data = None
     # it defines the max rounds to train the model
-    max_epoch = 70
+    max_epoch = 100
     # it defines the learning rate for gradient descent based optimizer for model learning
     learning_rate = 2e-3
     # defines momentum hyperparameter
@@ -55,6 +56,8 @@ class Method_MLP(method, nn.Module):
     # so we don't need to define the error backpropagation function here
 
     def train(self, X, y):
+        # List to store loss values during training
+        losses = []
         # check here for the torch.optim doc: https://pytorch.org/docs/stable/optim.html
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
         # check here for the nn.CrossEntropyLoss doc: https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html
@@ -72,7 +75,8 @@ class Method_MLP(method, nn.Module):
             y_true = torch.LongTensor(np.array(y))
             # calculate the training loss
             train_loss = loss_function(y_pred, y_true)
-
+            # record loss for training convergence plot
+            losses.append(train_loss.item())
             # check here for the gradient init doc: https://pytorch.org/docs/stable/generated/torch.optim.Optimizer.zero_grad.html
             optimizer.zero_grad()
             # check here for the loss.backward doc: https://pytorch.org/docs/stable/generated/torch.Tensor.backward.html
@@ -85,7 +89,13 @@ class Method_MLP(method, nn.Module):
             if epoch%2 == 0:
                 accuracy_evaluator.data = {'true_y': y_true, 'pred_y': y_pred.max(1)[1]}
                 print('Epoch:', epoch, 'Accuracy:', accuracy_evaluator.evaluate(), 'Loss:', train_loss.item())
-    
+        # Save training convergence plot
+        plt.plot(losses)
+        plt.xlabel('Epochs')
+        plt.ylabel('Loss')
+        plt.title('Training Loss over Epochs')
+        plt.savefig('../../result/stage_2_result/loss.png')
+
     def test(self, X):
         # do the testing, and result the result
         y_pred = self.forward(torch.FloatTensor(np.array(X)))

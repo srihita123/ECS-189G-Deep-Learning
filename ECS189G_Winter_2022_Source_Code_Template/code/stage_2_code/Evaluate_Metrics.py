@@ -16,6 +16,6 @@ class Evaluate_Metrics(evaluate):
         print('evaluating performance...')
         # Return a string with multiple evaluation metrics listed
         return ('Accuracy: ' + str(accuracy_score(self.data['true_y'], self.data['pred_y'])) + '\n'
-                + 'Precision: ' + str(precision_score(self.data['true_y'], self.data['pred_y'], average='macro', zero_division=1)) + '\n'
-                + 'Recall: ' + str(recall_score(self.data['true_y'], self.data['pred_y'], average='macro', zero_division=1)) + '\n'
+                + 'Precision: ' + str(precision_score(self.data['true_y'], self.data['pred_y'], average='macro')) + '\n'
+                + 'Recall: ' + str(recall_score(self.data['true_y'], self.data['pred_y'], average='macro')) + '\n'
                 + 'F1: ' + str(f1_score(self.data['true_y'], self.data['pred_y'], average='macro')))
