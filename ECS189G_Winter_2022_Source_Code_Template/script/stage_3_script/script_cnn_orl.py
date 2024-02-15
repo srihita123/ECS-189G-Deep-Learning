@@ -1,8 +1,8 @@
-from src_code.stage_3_code.Dataset_Loader import Dataset_Loader
-from src_code.stage_3_code.Method_CNN_ORL import Method_CNN_ORL
-from src_code.stage_3_code.Result_Saver import Result_Saver
-from src_code.stage_3_code.Setting import Setting
-from src_code.stage_3_code.Evaluate_Metrics import Evaluate_Metrics
+from code.stage_3_code.Dataset_Loader import Dataset_Loader
+from code.stage_3_code.Method_CNN_ORL import Method_CNN_ORL
+from code.stage_3_code.Result_Saver import Result_Saver
+from code.stage_3_code.Setting import Setting
+from code.stage_3_code.Evaluate_Metrics import Evaluate_Metrics
 import numpy as np
 import torch
 

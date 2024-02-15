@@ -5,7 +5,7 @@ Concrete IO class for a specific dataset
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from src_code.base_class.dataset import dataset
+from code.base_class.dataset import dataset
 # import torchvision.transforms as transforms
 # import torch
 # import numpy as np

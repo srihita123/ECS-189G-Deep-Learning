@@ -2,7 +2,7 @@
     Concrete class for experiment with separate testing and training data
     Does not implement setting base class!
 '''
-from src_code.base_class.setting import setting
+from code.base_class.setting import setting
 
 
 class Setting(setting):
