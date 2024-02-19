@@ -1,4 +1,4 @@
-from code.stage_3_code.Dataset_Loader import MNIST_Dataset_Loader
+from code.stage_3_code.Dataset_Loader import Dataset_Loader
 from code.stage_3_code.Result_Saver import Result_Saver
 from code.stage_3_code.Setting import Setting
 from code.stage_3_code.Method_CNN_MNIST import Method_CNN_MNIST
@@ -14,8 +14,7 @@ if 1:
     #------------------------------------------------------
 
     # ---- object initialization section ------------------
-    data_obj = MNIST_Dataset_Loader('MNIST', '')
-    #data_obj.dataset_source_folder_path = '..\\..\\data\\stage_3_data\\stage_3_data\\'
+    data_obj = Dataset_Loader('MNIST', '')
     data_obj.dataset_source_folder_path = '../../data/stage_3_data/stage_3_data/'
     data_obj.dataset_source_file_name = 'MNIST'
 
