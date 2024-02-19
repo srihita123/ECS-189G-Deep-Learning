@@ -8,7 +8,6 @@ Concrete Evaluate class for a specific evaluation metrics
 from code.base_class.evaluate import evaluate
 from sklearn.metrics import accuracy_score
 
-
 class Evaluate_Accuracy(evaluate):
     data = None
     
