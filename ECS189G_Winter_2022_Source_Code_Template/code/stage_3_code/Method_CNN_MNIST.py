@@ -23,14 +23,14 @@ class Method_CNN_MNIST(method, nn.Module):
         self.pool1 = nn.MaxPool2d(kernel_size=3, stride=3)
 
         self.conv2 = nn.Conv2d(in_channels=64, out_channels=16, kernel_size=3, stride=1, padding=1)
-        self.act2 = nn.ReLU()
+        self.act2 = nn.Tanh()
         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.flat = nn.Flatten()
 
         #self.fc3 = nn.Linear(in_features=1008, out_features=100)
         self.fc3 = nn.Linear(in_features=16 * 2 * 2, out_features=100)
-        self.act3 = nn.Tanh()
+        self.act3 = nn.ReLU()
 
         self.fc4 = nn.Linear(in_features=100, out_features=10)
         self.act4 = nn.Softmax(dim=1)
