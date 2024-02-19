@@ -62,17 +62,11 @@ class Method_CNN_ORL(method, nn.Module):
 
     def forward(self, x):
         '''Forward propagation'''
-        print(x.size())
         y_pred = self.act1(self.conv1(x))
-        print(y_pred.size())
         y_pred = self.pool1(y_pred)
-        print(y_pred.size())
         y_pred = self.act2(self.conv2(y_pred))
-        print(y_pred.size())
         y_pred = self.pool2(y_pred)
-        print(y_pred.size())
         y_pred = self.flat(y_pred)
-        print(y_pred.size())
         y_pred = self.act3(self.fc3(y_pred))
         y_pred = self.act4(self.fc4(y_pred))
         return y_pred
