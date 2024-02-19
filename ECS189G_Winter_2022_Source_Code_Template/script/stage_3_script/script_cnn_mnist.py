@@ -15,7 +15,7 @@ if 1:
 
     # ---- object initialization section ------------------
     data_obj = Dataset_Loader('MNIST', '')
-    data_obj.dataset_source_folder_path = '../../data/stage_3_data/stage_3_data/'
+    data_obj.dataset_source_folder_path = '../../data/stage_3_data/'
     data_obj.dataset_source_file_name = 'MNIST'
 
     method_obj = Method_CNN_MNIST('cnn_mnist_dataset', '')
