@@ -35,17 +35,17 @@ class Method_CNN_ORL(method, nn.Module):
         method.__init__(self, mName, mDescription)
         nn.Module.__init__(self)
         # input image is 112 x 92 x 1
-        self.conv1 = nn.Conv2d(in_channels=1, out_channels=64, kernel_size=6, stride=2)
+        self.conv1 = nn.Conv2d(in_channels=1, out_channels=48, kernel_size=6, stride=2)
         self.act1 = nn.ReLU()
         self.pool1 = nn.MaxPool2d(kernel_size=3, stride=3)
 
-        self.conv2 = nn.Conv2d(in_channels=64, out_channels=16, kernel_size=3, stride=1, padding=1)
+        self.conv2 = nn.Conv2d(in_channels=48, out_channels=12, kernel_size=3, stride=1, padding=1)
         self.act2 = nn.ReLU()
         self.pool2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
         self.flat = nn.Flatten()
 
-        self.fc3 = nn.Linear(in_features=1008, out_features=100)
+        self.fc3 = nn.Linear(in_features=756, out_features=100)
         self.act3 = nn.Tanh()
 
         self.fc4 = nn.Linear(in_features=100, out_features=40)
