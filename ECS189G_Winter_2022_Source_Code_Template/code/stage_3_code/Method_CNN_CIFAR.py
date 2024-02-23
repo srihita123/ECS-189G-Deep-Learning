@@ -13,6 +13,8 @@ import torch.nn as nn
 import numpy as np
 from torchvision import transforms
 from torch.utils.data import Dataset, DataLoader, TensorDataset
+from torch.utils.data import random_split
+from tqdm import tqdm
 
 
 class Method_CNN_CIFAR(method, nn.Module):
@@ -99,17 +101,17 @@ class Method_CNN_CIFAR(method, nn.Module):
 
         return y_pred
 
-    # def normalize(self, X : torch.Tensor):
-    #     X_rescaled = (X - X.min()) / (X.max() - X.min())
-    #     return (X_rescaled - self.mean) / self.std
-
     def train(self, X, y):
 
         print("Number of points:", len(X))
         print("Number of features:", len(X[0]), len(X[0][0]), len(X[0][0][0]))
         print("Unique values", set(y))
 
-        # Convert X and y to PyTorch tensors
+        # List to store loss values during training
+        losses = []
+        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
+        loss_function = nn.CrossEntropyLoss()
+
         if isinstance(X, list):
             X = np.array(X)
         X_tensor = torch.tensor(X, dtype=torch.float32).permute(0, 3, 1, 2) / 255.0  # Normalize to [0, 1]
@@ -119,15 +121,10 @@ class Method_CNN_CIFAR(method, nn.Module):
         dataset = torch.utils.data.TensorDataset(X_tensor, y_tensor)
         loader = torch.utils.data.DataLoader(dataset, batch_size=64, shuffle=True)
 
-        # List to store loss values during training
-        losses = []
-        optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate)
-        loss_function = nn.CrossEntropyLoss()
-
         # for training accuracy investigation purpose
         accuracy_evaluator = Evaluate_Accuracy('training evaluator', '')
 
-        # y_true = torch.LongTensor(np.array(y))
+        y_true = torch.LongTensor(np.array(y))
 
         for epoch in range(self.max_epoch):
             total_loss = 0
@@ -141,10 +138,11 @@ class Method_CNN_CIFAR(method, nn.Module):
 
                 train_loss = loss_function(y_pred, target)
                 total_loss += train_loss.item()
-                losses.append(train_loss.item())
+
 
                 train_loss.backward()
                 optimizer.step()
+            losses.append(total_loss)
 
             avg_loss = total_loss / len(loader)
             # accuracy_evaluator.data = {'true_y': y_true, 'pred_y': y_pred.max(1)[1]}
@@ -157,6 +155,8 @@ class Method_CNN_CIFAR(method, nn.Module):
         plt.ylabel('Loss')
         plt.title('Training Loss over Epochs')
         plt.savefig('../../result/stage_3_result/cifar_loss.png')
+
+        # return history
 
     def test(self, X):
         if isinstance(X, list):
@@ -191,6 +191,16 @@ class Method_CNN_CIFAR(method, nn.Module):
         if self.mps_device:
             print('Using MPS')
         print('--start training...')
+
+        # val_size = 5000
+        # train_size = len(self.data['train']['X']) - val_size
+        # train_ds, val_ds = random_split(self.data['train']['X'], [train_size, val_size])
+        #
+        # batch_size = 64
+        # train_dl = DataLoader(train_ds, batch_size, shuffle=True, num_workers=4, pin_memory=True)
+        # val_dl = DataLoader(val_ds, batch_size, num_workers=4, pin_memory=True)
+        # history = self.train(train_dl, val_dl)
+
         self.train(self.data['train']['X'], self.data['train']['y'])
         print('--start testing...')
         # remember to use 0-39 indexing!
