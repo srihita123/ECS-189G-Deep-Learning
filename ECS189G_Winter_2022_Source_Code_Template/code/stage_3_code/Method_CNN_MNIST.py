@@ -1,8 +1,8 @@
-from code.base_class.method import method
+from src_code.base_class.method import method
 import torch
 from torch import nn
 import numpy as np
-from code.stage_3_code.Evaluate_Accuracy import Evaluate_Accuracy
+from src_code.stage_3_code.Evaluate_Accuracy import Evaluate_Accuracy
 import matplotlib.pyplot as plt
 
 

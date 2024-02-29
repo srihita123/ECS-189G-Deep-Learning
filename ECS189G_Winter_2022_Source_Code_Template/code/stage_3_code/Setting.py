@@ -1,7 +1,7 @@
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from code.base_class.setting import setting
+from src_code.base_class.setting import setting
 from sklearn.model_selection import train_test_split
 import numpy as np
 

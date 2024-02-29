@@ -1,8 +1,8 @@
-from src_code.stage_4_code.Joke_Dataset_Loader import Joke_Dataset_Loader
-from src_code.stage_4_code.Method_Joke_RNN import Method_Joke_RNN
-from src_code.stage_4_code.Result_Saver import Result_Saver
-from src_code.stage_4_code.Setting_Separate_Train_Test import Setting_Separate_Train_Test
-from src_code.stage_4_code.Evaluate_Metrics import Evaluate_Metrics
+from code.stage_4_code.Joke_Dataset_Loader import Joke_Dataset_Loader
+from code.stage_4_code.Method_Joke_RNN import Method_Joke_RNN
+from code.stage_4_code.Result_Saver import Result_Saver
+from code.stage_4_code.Setting_Joke_RNN import Setting_Joke_RNN
+from code.stage_4_code.Evaluate_Metrics import Evaluate_Metrics
 import numpy as np
 import torch
 
@@ -20,13 +20,14 @@ if 1:
     data_obj.dataset_source_folder_path = '../../data/stage_4_data/text_generation/'
 
     # move data loading to initialization step
-    method_obj = Method_Joke_RNN('text generation RNN', '', data_obj.load())
+    # set training flag depending on if retraining or using old weights
+    method_obj = Method_Joke_RNN('text generation RNN', '', data_obj.load(), False)
 
     result_obj = Result_Saver('saver', '')
     result_obj.result_destination_folder_path = '../../result/stage_4_result/Joke_RNN_'
     result_obj.result_destination_file_name = 'result'
 
-    setting_obj = Setting_Separate_Train_Test('setting text generation RNN', '')
+    setting_obj = Setting_Joke_RNN('setting text generation RNN', '')
 
     evaluate_obj = Evaluate_Metrics('multiple metrics', '')
     # ------------------------------------------------------

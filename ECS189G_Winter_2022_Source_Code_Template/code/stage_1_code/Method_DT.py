@@ -5,7 +5,7 @@ Concrete MethodModule class for a specific learning MethodModule
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from code.base_class.method import method
+from src_code.base_class.method import method
 from sklearn import tree
 
 

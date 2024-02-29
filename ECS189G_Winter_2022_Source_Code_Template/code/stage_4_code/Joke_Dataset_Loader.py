@@ -5,7 +5,7 @@ Concrete IO class for a specific dataset
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from src_code.base_class.dataset import dataset
+from code.base_class.dataset import dataset
 import numpy as np
 import csv
 
@@ -26,6 +26,7 @@ class Joke_Dataset_Loader(dataset):
         vocab = set()
         for line in self.data:
             vocab.update(line)
+        vocab.update("END_OF_JOKE")
         vocab = list(vocab)
         vocab.sort()  # Sort the vocabulary for consistency
         self.vocab = vocab
@@ -38,10 +39,16 @@ class Joke_Dataset_Loader(dataset):
         return encoding
 
     def get_encoded(self):
-        return [[self.encode(token) for token in line] for line in self.data]
+        return [([self.encode(token) for token in line]) for line in self.data]
 
-    def decode(self, encoding):
+    def get_encoded_single(self):
+        return [self.encode(token) for token in self.data]
+
+    def decode_from_encoding(self, encoding):
         return self.vocab[np.argmax(encoding)]
+
+    def decode_from_index(self, index):
+        return self.vocab[index]
 
     def load(self):
         print('loading data...')
@@ -52,6 +59,7 @@ class Joke_Dataset_Loader(dataset):
         next(reader)
         for line in reader:
             tokens = self.tokenize(line[1])
+            tokens.append("END_OF_JOKE")
             self.data.append(tokens)
         f.close()
         # set vocab attribute using data

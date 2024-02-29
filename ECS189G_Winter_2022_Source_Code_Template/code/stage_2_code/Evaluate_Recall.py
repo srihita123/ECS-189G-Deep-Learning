@@ -5,7 +5,7 @@ Concrete Evaluate class for a recall
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from code.base_class.evaluate import evaluate
+from src_code.base_class.evaluate import evaluate
 from sklearn.metrics import recall_score
 
 

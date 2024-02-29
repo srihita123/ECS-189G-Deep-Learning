@@ -2,7 +2,7 @@
     Concrete class for experiment with separate testing and training data
     Does not implement setting base class!
 '''
-from code.base_class.setting import setting
+from src_code.base_class.setting import setting
 class Setting_Separate_Train_Test(setting):
 
     # Add new attribute for testing dataset

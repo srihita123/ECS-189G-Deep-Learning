@@ -5,7 +5,7 @@ Concrete Evaluate class for multiple evaluation metrics
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from code.base_class.evaluate import evaluate
+from src_code.base_class.evaluate import evaluate
 from sklearn.metrics import accuracy_score, recall_score, precision_score, f1_score
 
 
