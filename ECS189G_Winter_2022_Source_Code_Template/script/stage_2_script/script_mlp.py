@@ -1,8 +1,8 @@
-from code.stage_2_code.Dataset_Loader import Dataset_Loader
-from code.stage_2_code.Method_MLP import Method_MLP
-from code.stage_2_code.Result_Saver import Result_Saver
-from code.stage_2_code.Setting_Separate_Train_Test import Setting_Separate_Train_Test
-from code.stage_2_code.Evaluate_Metrics import Evaluate_Metrics
+from source_code.stage_2_code.Dataset_Loader import Dataset_Loader
+from source_code.stage_2_code.Method_MLP import Method_MLP
+from source_code.stage_2_code.Result_Saver import Result_Saver
+from source_code.stage_2_code.Setting_Separate_Train_Test import Setting_Separate_Train_Test
+from source_code.stage_2_code.Evaluate_Metrics import Evaluate_Metrics
 import numpy as np
 import torch
 

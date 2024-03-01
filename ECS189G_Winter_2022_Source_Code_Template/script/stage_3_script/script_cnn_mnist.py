@@ -1,8 +1,8 @@
-from code.stage_3_code.Dataset_Loader import Dataset_Loader
-from code.stage_3_code.Result_Saver import Result_Saver
-from code.stage_3_code.Setting import Setting
-from code.stage_3_code.Method_CNN_MNIST import Method_CNN_MNIST
-from code.stage_3_code.Evaluate_Metrics import Evaluate_Metrics
+from source_code.stage_3_code.Dataset_Loader import Dataset_Loader
+from source_code.stage_3_code.Result_Saver import Result_Saver
+from source_code.stage_3_code.Setting import Setting
+from source_code.stage_3_code.Method_CNN_MNIST import Method_CNN_MNIST
+from source_code.stage_3_code.Evaluate_Metrics import Evaluate_Metrics
 import numpy as np
 import torch
 

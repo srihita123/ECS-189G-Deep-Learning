@@ -5,7 +5,7 @@ Concrete IO class for a specific dataset
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from code.base_class.dataset import dataset
+from source_code.base_class.dataset import dataset
 
 
 class Dataset_Loader(dataset):
