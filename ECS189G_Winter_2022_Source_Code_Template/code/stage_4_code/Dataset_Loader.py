@@ -6,7 +6,7 @@ from collections import Counter
 # Copyright (c) 2017-Current Jiawei Zhang <jiawei@ifmlab.org>
 # License: TBD
 
-from src_code.base_class.dataset import dataset
+from code.base_class.dataset import dataset
 import re
 import numpy as np
 class Dataset_Loader(dataset):
@@ -16,9 +16,6 @@ class Dataset_Loader(dataset):
     
     def __init__(self, dName=None, dDescription=None):
         super().__init__(dName, dDescription)
-
-    def sigmoid(self,x):
-        return 1 / (1 + np.exp(-1 * x))
 
     def tokenize_sentence(self,sentence):
         # Split by whitespace and punctuation
@@ -46,8 +43,8 @@ class Dataset_Loader(dataset):
         # vocab = {word: index for index, word in enumerate(sorted(vocab))}
         # print("Length of vocab",len(vocab))
         # return vocab
-
-        word_count = Counter(jokes)
+        flattened_jokes = [token for joke in jokes for token in joke]
+        word_count = Counter(flattened_jokes)
         sorted_vocab = sorted(word_count, key=word_count.get, reverse=True)
         int_to_vocab = {ii: word for ii, word in enumerate(sorted_vocab)}
         vocab_to_int = {word: ii for ii, word in int_to_vocab.items()}
@@ -70,12 +67,11 @@ class Dataset_Loader(dataset):
             decoded_jokes.append(joke)
         return decoded_jokes
 
-    def decodeTest(self, encoded_joke, int_to):
-        decode = []
-        for token in encoded_joke:
-            sortedVocab = sorted(vocab.keys())
-            decode.append(sortedVocab[int(token)])
-        return decode
+    def decodeTest(self, encoded_joke, int_to_vocab):
+        decoded = []
+        for encoding in encoded_joke:
+            decoded.append(int_to_vocab[round(encoding)])
+        return decoded
 
     def load(self):
         print('loading data...')
@@ -83,7 +79,7 @@ class Dataset_Loader(dataset):
         jokes = self.jokesProcess()
         vocab_to_int, int_to_vocab = self.vocabSet(jokes)
         encoded_jokes = self.encode(jokes, vocab_to_int)
-        decoded_jokes = self.decode(encoded_jokes[0],vocab)
+        decoded_jokes = self.decode(encoded_jokes, int_to_vocab)
 
         input = []
         output = []
@@ -97,17 +93,19 @@ class Dataset_Loader(dataset):
         input = np.array(padded_input)
         output = np.array(padded_output)
 
-        print("Vocabulary:", vocab)
+        print("Vocabulary:", int_to_vocab)
         print("Encoded Jokes:", encoded_jokes[0])
-        print("Decoded Jokes:", decoded_jokes)
+        print("Decoded Jokes:", decoded_jokes[0])
         print("Decode length", len(decoded_jokes))
         print("encode length", len(encoded_jokes[0]))
         f.close()
         return input, output
 
+'''
 curr = Dataset_Loader()
 curr.dataset_source_folder_path = "/Users/Srihita/Desktop/ECS189G_Winter_2022_Source_Code_Template/data/stage_4_data/text_generation/"
 curr.dataset_source_file_name = "data"
 input, output = curr.load()
 jokes = curr.jokesProcess()
 vocab = curr.vocabSet(jokes)
+'''
