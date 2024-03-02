@@ -58,9 +58,9 @@ if 1:
         # Assuming 'cleaned_review' is a single cleaned review text
         # tokens = tokenizer(cleaned_reviews, return_tensors='pt', padding=True, truncation=True, max_length=512)
         print("positive embeddings")
-        positive_embeddings = encode_reviews(cleaned_reviews['pos'][:160], batch_size=16)
+        positive_embeddings = encode_reviews(cleaned_reviews['pos'], batch_size=16)
         print("negative embeddings")
-        negative_embeddings = encode_reviews(cleaned_reviews['neg'][:160], batch_size=16)
+        negative_embeddings = encode_reviews(cleaned_reviews['neg'], batch_size=16)
 
         print(positive_embeddings)
 

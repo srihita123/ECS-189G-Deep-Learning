@@ -61,57 +61,8 @@ if 1:
     print('************ Start ************')
     setting_obj.prepare(data_obj, method_obj, result_obj, evaluate_obj)
     setting_obj.print_setup_summary()
-    mean_score, std_score = setting_obj.load_run_save_evaluate()
-    print('************ Overall Performance ************')
-    print('Accuracy: ' + str(mean_score) + ' +/- ' + str(std_score))
+    result = setting_obj.load_run_save_evaluate()
+    print(result)
     print('************ Finish ************')
     # ------------------------------------------------------
-
-
-# import torch
-# import pickle
-# import numpy as np
-#
-# from source_code.stage_4_code.Method_Classification import Method_Classification
-#
-# # Load embeddings
-# with open("./embeddings_small_train.pkl", 'rb') as f1:
-#     embeddings_train = pickle.load(f1)
-#
-# with open("./embeddings_small_test.pkl", 'rb') as f2:
-#     embeddings_test = pickle.load(f2)
-#
-# # train
-# # Convert embeddings to PyTorch tensors
-# positive_embeddings = torch.tensor(np.array(embeddings_train['positive']))
-# negative_embeddings = torch.tensor(np.array(embeddings_train['negative']))
-#
-# # Create labels
-# positive_labels = torch.ones(positive_embeddings.size(0), dtype=torch.long)  # Label 1 for positive reviews
-# negative_labels = torch.zeros(negative_embeddings.size(0), dtype=torch.long)  # Label 0 for negative reviews
-#
-# # Concatenate embeddings and labels
-# X_train = torch.cat((positive_embeddings, negative_embeddings), 0)
-# y_train = torch.cat((positive_labels, negative_labels), 0)
-#
-# # test
-# # Convert embeddings to PyTorch tensors
-# positive_embeddings2 = torch.tensor(np.array(embeddings_test['positive']))
-# negative_embeddings2 = torch.tensor(np.array(embeddings_test['negative']))
-#
-# # Create labels
-# positive_labels2 = torch.ones(positive_embeddings2.size(0), dtype=torch.long)  # Label 1 for positive reviews
-# negative_labels2 = torch.zeros(negative_embeddings2.size(0), dtype=torch.long)  # Label 0 for negative reviews
-#
-# # Concatenate embeddings and labels
-# X_test = torch.cat((positive_embeddings2, negative_embeddings2), 0)
-# y_test = torch.cat((positive_labels2, negative_labels2), 0)
-#
-# print("X_test", X_test)
-# print("Size of tensor X tr, y tr, X te, y te:", X_train.size(), y_train.size(), X_test.size(), y_test.size())
-# print("Dimension of tensor X tr, y tr, X te, y te:", X_train.dim(), y_train.dim(), X_test.dim(), y_test.dim())
-#
-# print("starting model run")
-# method_obj = Method_Classification('text classification', '')
-# method_obj.run(X_train, y_train, X_test, y_test)
 
