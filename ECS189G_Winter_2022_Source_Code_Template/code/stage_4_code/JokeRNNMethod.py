@@ -31,7 +31,7 @@ class JokeRNNMethod(nn.Module, method):
         dataloader.load()
         self.dataloader = dataloader
         self.embedding = nn.Embedding(self.dataloader.vocab_size, self.embedding_size)
-        self.rnn = nn.LSTM(self.embedding_size, self.rnn_size, self.num_layers, dropout=self.dropout, batch_first=True)
+        self.rnn = nn.GRU(self.embedding_size, self.rnn_size, self.num_layers, dropout=self.dropout, batch_first=True)
 
         # self.rnn = nn.RNN(1, hidden_size, batch_first=True)
         self.fc = nn.Linear(self.rnn_size, self.dataloader.vocab_size)
@@ -42,6 +42,7 @@ class JokeRNNMethod(nn.Module, method):
         out, hidden = self.rnn(embedded)
         # Only feed the output from last time step to FC layer
         final_out = self.fc(out[:, -1, :])
+        # Output has is shape (batch_size, vocab_size)
         return final_out, hidden
 
     def init_hidden(self, batch_size):
