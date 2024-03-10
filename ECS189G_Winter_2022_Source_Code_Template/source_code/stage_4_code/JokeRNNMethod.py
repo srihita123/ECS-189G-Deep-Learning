@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
-from code.stage_4_code.JokeDataset import JokeDataset
-from code.base_class.method import method
+from source_code.stage_4_code.JokeDataset import JokeDataset
+from source_code.base_class.method import method
 
 # Define RNN model
 class JokeRNNMethod(nn.Module, method):
@@ -87,7 +87,7 @@ class JokeRNNMethod(nn.Module, method):
             losses.append(total_loss)
             print(f'Epoch {epoch+1}/{self.max_epochs}, Avg Loss: {total_loss / len(batch_dataloader):.4f}')
         # Save best weights from training
-        torch.save([best_model, self.dataloader.vocab_to_int], "../../code/stage_4_code/joke-weights.pth")
+        torch.save([best_model, self.dataloader.vocab_to_int], "../../source_code/stage_4_code/joke-weights.pth")
 
         # Save training convergence plot
         plt.plot(losses)
@@ -98,7 +98,7 @@ class JokeRNNMethod(nn.Module, method):
 
     def test(self, start_tokens, max_tokens=10):
         # Load weights from best model found during training
-        best_model, vocab_to_int = torch.load("../../code/stage_4_code/joke-weights.pth")
+        best_model, vocab_to_int = torch.load("../../source_code/stage_4_code/joke-weights.pth")
         self.load_state_dict(best_model)
         # Encode start token input
         encoding = self.dataloader.encode_text(start_tokens)
@@ -131,12 +131,3 @@ class JokeRNNMethod(nn.Module, method):
         print('--start testing...')
         pred_y = self.test(start_tokens)
         return pred_y
-
-'''
-dataloader = JokeDataLoader()
-dataloader.dataset_source_folder_path = "../../data/stage_4_data/text_generation/"
-dataloader.dataset_source_file_name = "data"
-
-model = JokeRNNMethod("", "", dataloader)
-print(model.run())
-'''

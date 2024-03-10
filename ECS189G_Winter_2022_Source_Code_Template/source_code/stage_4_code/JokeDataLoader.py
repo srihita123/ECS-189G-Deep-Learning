@@ -7,7 +7,7 @@ Concrete IO class for a specific dataset
 import csv
 import random
 from collections import Counter
-from code.base_class.dataset import dataset
+from source_code.base_class.dataset import dataset
 from nltk.tokenize import word_tokenize
 
 class JokeDataLoader(dataset):

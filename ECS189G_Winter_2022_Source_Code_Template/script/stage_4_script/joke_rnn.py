@@ -1,8 +1,8 @@
-from code.stage_4_code.JokeDataLoader import JokeDataLoader
-from code.stage_4_code.JokeRNNMethod import JokeRNNMethod
-from code.stage_4_code.Result_Saver import Result_Saver
-from code.stage_4_code.Setting import Setting
-from code.stage_4_code.Evaluate_Metrics import Evaluate_Metrics
+from source_code.stage_4_code.JokeDataLoader import JokeDataLoader
+from source_code.stage_4_code.JokeRNNMethod import JokeRNNMethod
+from source_code.stage_4_code.Joke_Result_Saver import Result_Saver
+from source_code.stage_4_code.Joke_Setting import Setting
+from source_code.stage_4_code.Joke_Evaluate_Metrics import Evaluate_Metrics
 import numpy as np
 import torch
 
