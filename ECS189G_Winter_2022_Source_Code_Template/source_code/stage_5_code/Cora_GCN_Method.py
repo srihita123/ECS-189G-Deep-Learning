@@ -1,10 +1,12 @@
 import torch
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 from pygcn import GCN
 from source_code.stage_5_code.Dataset_Loader_Node_Classification import Dataset_Loader
 from source_code.stage_5_code.Evaluate_Accuracy import Evaluate_Accuracy
 from source_code.stage_5_code.Evaluate_Metrics import Evaluate_Metrics
+from source_code.stage_5_code.Result_Saver import Result_Saver
 
 # Get adjacency matrix for training / testing subset of nodes
 def filter_adjacency_matrix(adj_matrix, indices):
@@ -15,10 +17,11 @@ def filter_adjacency_matrix(adj_matrix, indices):
 # Fix random seeds
 np.random.seed(2)
 torch.manual_seed(2)
+random.seed(2)
 
 # Hyperparameters
 hidden_size = 300
-dropout = 0.1
+dropout = 0.0
 learning_rate = 1e-3
 max_epoch = 20
 
@@ -35,6 +38,8 @@ X_train = data['graph']['X'][data['train_test_val']['idx_train']]
 X_test = data['graph']['X'][data['train_test_val']['idx_test']]
 y_train = data['graph']['y'][data['train_test_val']['idx_train']]
 y_test = data['graph']['y'][data['train_test_val']['idx_test']]
+
+print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 # Filter adjacency list to only include nodes in set
 adj_train = filter_adjacency_matrix(adj, data['train_test_val']['idx_train'])
 adj_test = filter_adjacency_matrix(adj, data['train_test_val']['idx_test'])
@@ -76,8 +81,15 @@ plt.savefig('../../result/stage_5_result/cora_loss.png')
 # TESTING
 model.eval()
 y_pred = model(X_test, adj_test).max(1)[1]
-print(y_test)
-print(y_pred)
+for i in range(1050):
+    print(y_test[i], y_pred[i])
+
+# Save result
+result = Result_Saver()
+result.result_destination_folder_path = '../../result/stage_5_result/'
+result.result_destination_file_name = 'cora_result'
+result.data = {'true_y': y_test, 'pred_y': y_pred}
+result.save()
 
 # Evaluate testing
 evaluate_metrics = Evaluate_Metrics('testing evaluator', '')
