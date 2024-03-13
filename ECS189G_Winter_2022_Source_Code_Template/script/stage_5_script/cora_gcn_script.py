@@ -1,5 +1,5 @@
 from source_code.stage_5_code.Dataset_Loader_Node_Classification import Dataset_Loader
-from source_code.stage_5_code.Cora_GCN_Method2 import Cora_GCN_Method
+from source_code.stage_5_code.Cora_GCN_Method import Cora_GCN_Method
 from source_code.stage_5_code.Result_Saver import Result_Saver
 from source_code.stage_5_code.Cora_Setting import Cora_Setting
 from source_code.stage_5_code.Evaluate_Metrics import Evaluate_Metrics
