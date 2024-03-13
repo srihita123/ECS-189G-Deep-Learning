@@ -76,8 +76,8 @@ plt.savefig('../../result/stage_5_result/cora_loss.png')
 # TESTING
 model.eval()
 y_pred = model(X_test, adj_test).max(1)[1]
-print(y_test)
-print(y_pred)
+print("y_test", y_test)
+print("y_pred", y_pred)
 
 # Evaluate testing
 evaluate_metrics = Evaluate_Metrics('testing evaluator', '')
