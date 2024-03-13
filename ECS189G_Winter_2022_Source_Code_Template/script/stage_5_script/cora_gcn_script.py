@@ -5,12 +5,14 @@ from source_code.stage_5_code.Cora_Setting import Cora_Setting
 from source_code.stage_5_code.Evaluate_Metrics import Evaluate_Metrics
 import numpy as np
 import torch
+import random
 
 # ---- Multi-Layer Perceptron script ----
 if 1:
     # ---- parameter section -------------------------------
     np.random.seed(2)
     torch.manual_seed(2)
+    random.seed(2)
     # ------------------------------------------------------
 
     # ---- objection initialization section ---------------
@@ -22,7 +24,7 @@ if 1:
     method_obj = Cora_GCN_Method('GCN on Cora dataset', '', nfeat=1433, nclass=7)
 
     result_obj = Result_Saver('Cora saver', '')
-    result_obj.result_destination_folder_path = '../../result/stage_2_result/Cora'
+    result_obj.result_destination_folder_path = '../../result/stage_5_result/Cora_'
     result_obj.result_destination_file_name = 'prediction_result'
 
     setting_obj = Cora_Setting('Setting Cora', '')
