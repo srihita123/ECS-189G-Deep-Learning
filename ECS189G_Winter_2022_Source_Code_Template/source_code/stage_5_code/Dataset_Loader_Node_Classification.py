@@ -1,6 +1,7 @@
 '''
 Concrete IO class for a specific dataset
 '''
+import random
 
 # Copyright (c) 2017 Jiawei Zhang <jwzhanggy@gmail.com>
 # License: TBD
@@ -51,6 +52,9 @@ class Dataset_Loader(dataset):
         features = sp.csr_matrix(idx_features_labels[:, 1:-1], dtype=np.float32)
         onehot_labels = self.encode_onehot(idx_features_labels[:, -1])
 
+        print("initial features", features[0][0])
+        print("initial labels", onehot_labels[0])
+
         # load link data from file and build graph
         idx = np.array(idx_features_labels[:, 0], dtype=np.int32)
         idx_map = {j: i for i, j in enumerate(idx)}
@@ -68,12 +72,47 @@ class Dataset_Loader(dataset):
         labels = torch.LongTensor(np.where(onehot_labels)[1])
         adj = self.sparse_mx_to_torch_sparse_tensor(norm_adj)
 
+        print("filtering", features.shape, labels.shape, adj.shape)
+
         # the following part, you can either put them into the setting class or you can leave them in the dataset loader
         # the following train, test, val index are just examples, sample the train, test according to project requirements
         if self.dataset_name == 'cora':
-            idx_train = range(140)
-            idx_test = range(200, 1250)
-            idx_val = range(1300, 1500)
+            # idx_train = range(140)
+            # idx_test = range(200, 1250)
+            # idx_val = range(1300, 1500)
+            unique_labels = torch.unique(labels)
+            idx_train = []
+            idx_test = []
+            idx_val = []
+
+            for label in unique_labels:
+                all_idx_label = (labels == label).nonzero().view(-1)
+                all_idx_label = all_idx_label[torch.randperm(all_idx_label.size(0))]
+
+                print("all idx", label, all_idx_label)
+
+                train_labels = all_idx_label[:20]
+                test_labels = all_idx_label[21: 21 + 150]
+                val_labels = all_idx_label[21+150+1: 21+150+1+200]
+
+                print("train size", train_labels.tolist(), len(train_labels))
+                print("test size", len(test_labels))
+
+                for idx in train_labels.tolist():
+                    idx_train.append(idx)
+
+                for idx in test_labels.tolist():
+                    idx_test.append(idx)
+
+                for idx in val_labels.tolist():
+                    idx_val.append(idx)
+
+            print("after separating", len(idx_train), len(idx_test), len(idx_val))
+            # print(torch.cat(idx_train))
+            random.shuffle(idx_train)
+            random.shuffle(idx_test)
+            random.shuffle(idx_val)
+
         elif self.dataset_name == 'citeseer':
             idx_train = range(120)
             idx_test = range(200, 1200)
@@ -97,7 +136,7 @@ class Dataset_Loader(dataset):
         # test_x = features[idx_test]
         # print(train_x, val_x, test_x)
 
-        train_test_val = {'idx_train': idx_train, 'idx_test': idx_test, 'idx_val': idx_val}
+        train_test_val = {'idx_train': idx_train, 'idx_test': idx_test}
         graph = {'node': idx_map, 'edge': edges, 'X': features, 'y': labels, 'utility': {'A': adj, 'reverse_idx': reverse_idx_map}}
         return {'graph': graph, 'train_test_val': train_test_val}
 
