@@ -15,7 +15,7 @@ class Cora_GCN_Method(nn.Module, method):
     weight_decay = 1e-3
     learning_rate = 1.5e-2
     momentum = 0.9
-    max_epoch = 100
+    max_epoch = 20
 
     def __init__(self, mName, mDescription, nfeat, nclass):
         method.__init__(self, mName, mDescription)
