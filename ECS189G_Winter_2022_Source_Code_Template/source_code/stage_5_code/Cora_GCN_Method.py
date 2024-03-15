@@ -12,7 +12,7 @@ class Cora_GCN_Method(nn.Module, method):
     hidden1 = 500
     hidden2 = 100
     dropout = 0.5
-    weight_decay = 0.0
+    weight_decay = 1e-3
     learning_rate = 1.5e-2
     momentum = 0.9
     max_epoch = 100
@@ -26,14 +26,16 @@ class Cora_GCN_Method(nn.Module, method):
         self.gc2 = GraphConvolution(self.hidden1, self.hidden2)
         self.activation_func_2 = nn.ReLU()
         self.fc3 = nn.Linear(self.hidden2, nclass)
-        self.activation_func_3 = nn.LogSoftmax(dim=1)
+        self.output_func = nn.LogSoftmax(dim=1)
 
     def forward(self, x, adj):
         h1 = self.activation_func_1(self.gc1(x, adj))
         h1 = self.dropout_layer(h1)
         h2 = self.activation_func_2(self.gc2(h1, adj))
         h2 = self.dropout_layer(h2)
-        h3 = self.activation_func_3(self.fc3(h2))
+        # h3 = self.activation_func_3(self.fc3(h2))
+        # h3 = self.dropout_layer(h3)
+        h3 = self.output_func(self.fc3(h2))
         return h3
 
     def train(self, features, labels, adj, idx):

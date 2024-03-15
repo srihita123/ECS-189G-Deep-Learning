@@ -10,9 +10,9 @@ import random
 # ---- Multi-Layer Perceptron script ----
 if 1:
     # ---- parameter section -------------------------------
-    np.random.seed(2)
-    torch.manual_seed(2)
-    random.seed(2)
+    np.random.seed(42)
+    torch.manual_seed(42)
+    random.seed(42)
     # ------------------------------------------------------
 
     # ---- objection initialization section ---------------
