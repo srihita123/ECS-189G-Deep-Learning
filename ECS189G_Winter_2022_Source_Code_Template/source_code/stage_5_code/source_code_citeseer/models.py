@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from source_code.stage_5_code.layers import GraphConvolution
+from source_code.stage_5_code.source_code_citeseer.layers import GraphConvolution
 
 
 class GCN(nn.Module):

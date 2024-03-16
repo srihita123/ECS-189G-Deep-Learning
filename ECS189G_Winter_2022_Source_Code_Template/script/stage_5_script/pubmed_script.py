@@ -7,10 +7,10 @@ import matplotlib.pyplot as plt
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-from source_code.stage_5_code.utils import load_data
-from source_code.stage_5_code.models import GCN
-from source_code.stage_5_code.Dataset_Loader_Node_Classification import Dataset_Loader
-from source_code.stage_5_code.train import train, plot_learning_curves, test
+from source_code.stage_5_code.pubmed_code.utils import load_data
+from source_code.stage_5_code.pubmed_code.models import GCN
+from source_code.stage_5_code.pubmed_code.Dataset_Loader_Node_Classification import Dataset_Loader
+from source_code.stage_5_code.pubmed_code.train import train, plot_learning_curves, test
 
 seed = 42
 np.random.seed(seed)
@@ -19,7 +19,7 @@ torch.cuda.manual_seed(seed)
 
 curr = Dataset_Loader()
 curr.dataset_name = 'pubmed'
-curr.dataset_source_folder_path = "/Users/Srihita/Desktop/ECS189G_Winter_2022_Source_Code_Template/data/stage_5_data/pubmed/"
+curr.dataset_source_folder_path = "../../data/stage_5_data/pubmed/"
 
 # Training settings
 parser = argparse.ArgumentParser()

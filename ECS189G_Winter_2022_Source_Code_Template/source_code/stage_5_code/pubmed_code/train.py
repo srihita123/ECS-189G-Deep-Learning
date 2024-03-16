@@ -3,8 +3,8 @@ import numpy as np
 import torch
 import torch.nn.functional as F
 import torch.optim as optim
-from source_code.stage_5_code.utils import accuracy, precision, recall, f1_score
-from source_code.stage_5_code.models import GCN
+from source_code.stage_5_code.pubmed_code.utils import accuracy, precision, recall, f1_score
+from source_code.stage_5_code.pubmed_code.models import GCN
 import matplotlib.pyplot as plt
 def train(epoch, adj, features, labels, idx_train, idx_val, idx_test, model, optimizer,args,loss):
     t = time.time()
