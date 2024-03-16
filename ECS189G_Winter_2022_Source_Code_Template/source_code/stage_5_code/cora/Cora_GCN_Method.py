@@ -3,19 +3,18 @@ import torch.nn as nn
 import matplotlib.pyplot as plt
 from pygcn import GraphConvolution
 from source_code.base_class.method import method
-from source_code.stage_5_code.Evaluate_Accuracy import Evaluate_Accuracy
+from stage_5_code.cora.Evaluate_Accuracy import Evaluate_Accuracy
 
 
 class Cora_GCN_Method(nn.Module, method):
     data = None
     # Hyperparameters
-    hidden1 = 500
+    hidden1 = 100
     hidden2 = 100
     dropout = 0.5
-    weight_decay = 1e-3
-    learning_rate = 1.5e-2
-    momentum = 0.9
-    max_epoch = 20
+    weight_decay = 5e-4
+    learning_rate = 1e-3
+    max_epoch = 80
 
     def __init__(self, mName, mDescription, nfeat, nclass):
         method.__init__(self, mName, mDescription)
@@ -38,7 +37,7 @@ class Cora_GCN_Method(nn.Module, method):
         h3 = self.output_func(self.fc3(h2))
         return h3
 
-    def train(self, features, labels, adj, idx):
+    def train_loop(self, features, labels, adj, idx):
         optimizer = torch.optim.Adam(self.parameters(), lr=self.learning_rate, weight_decay=self.weight_decay)
         loss_function = torch.nn.NLLLoss()
         accuracy_evaluator = Evaluate_Accuracy('training evaluator', '')
@@ -68,7 +67,9 @@ class Cora_GCN_Method(nn.Module, method):
         plt.savefig('../../result/stage_5_result/cora_loss.png')
 
     def test(self, features, adj, idx):
-        output = self.forward(features, adj)
+        self.eval()
+        with torch.no_grad():
+            output = self.forward(features, adj)
         # return inference on TESTING DATA only
         return output[idx].max(1)[1]
 
@@ -79,10 +80,9 @@ class Cora_GCN_Method(nn.Module, method):
         adj = self.data['graph']['utility']['A']
         idx_train = self.data['train_test_val']['idx_train']
         idx_test = self.data['train_test_val']['idx_test']
-
         print('method running...')
         print('--start training...')
-        self.train(features, labels, adj, idx_train)
+        self.train_loop(features, labels, adj, idx_train)
         print('--start testing...')
         output = self.test(features, adj, idx_test)
         return {'pred_y': output, 'true_y': labels[idx_test]}

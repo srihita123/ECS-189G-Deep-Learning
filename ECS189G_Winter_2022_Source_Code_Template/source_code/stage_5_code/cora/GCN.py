@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
-from source_code.stage_5_code.Dataset_Loader_Node_Classification import Dataset_Loader
+from stage_5_code import Dataset_Loader
 class GCN(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
         super(GCN, self).__init__()
@@ -30,7 +30,7 @@ class GraphConvolution(nn.Module):
 # Instantiate the Dataset_Loader
 curr = Dataset_Loader()
 curr.dataset_name = 'pubmed'
-curr.dataset_source_folder_path = "../../data/stage_5_data/pubmed"  # Update with the actual path
+curr.dataset_source_folder_path = "../../../data/stage_5_data/pubmed"  # Update with the actual path
 
 # Load the dataset
 data = curr.load()

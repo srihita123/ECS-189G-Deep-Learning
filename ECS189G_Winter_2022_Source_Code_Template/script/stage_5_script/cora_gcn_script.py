@@ -1,18 +1,21 @@
-from source_code.stage_5_code.Dataset_Loader_Node_Classification import Dataset_Loader
-from source_code.stage_5_code.Cora_GCN_Method import Cora_GCN_Method
-from source_code.stage_5_code.Result_Saver import Result_Saver
-from source_code.stage_5_code.Cora_Setting import Cora_Setting
-from source_code.stage_5_code.Evaluate_Metrics import Evaluate_Metrics
+from source_code.stage_5_code.cora.Dataset_Loader_Node_Classification import Dataset_Loader
+from source_code.stage_5_code.cora.Cora_GCN_Method import Cora_GCN_Method
+from source_code.stage_5_code.cora.Result_Saver import Result_Saver
+from source_code.stage_5_code.cora.Cora_Setting import Cora_Setting
+from source_code.stage_5_code.cora.Evaluate_Metrics import Evaluate_Metrics
 import numpy as np
 import torch
 import random
+import os
 
 # ---- Multi-Layer Perceptron script ----
 if 1:
     # ---- parameter section -------------------------------
+    torch.use_deterministic_algorithms(True)
     np.random.seed(42)
     torch.manual_seed(42)
     random.seed(42)
+    os.environ["PYTHONHASHSEED"] = str(42)
     # ------------------------------------------------------
 
     # ---- objection initialization section ---------------
