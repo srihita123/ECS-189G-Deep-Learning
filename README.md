@@ -7,7 +7,7 @@ Project Stages
 4. Graph Embedding and Node Classification with GNN model
 
 Corresponding Project Reports 
-- [Stage 1 Report](Stage 1 Report.pdf)
-- [Stage 2 Report](Stage 2 Report.pdf)
-- [Stage 3 Report](Stage 3 Report.pdf)
-- [Stage 4 Report](Stage 4 Report.pdf)
+- [Stage 1 Report](ECS-189G-Deep-Learning/Stage%201%20Report.pdf)
+- [Stage 2 Report](ECS-189G-Deep-Learning/Stage%202%20Report.pdf)
+- [Stage 3 Report](ECS-189G-Deep-Learning/Stage%203%20Report.pdf)
+- [Stage 4 Report](ECS-189G-Deep-Learning/Stage%204%20Report.pdf)
