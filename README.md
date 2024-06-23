@@ -7,3 +7,7 @@ Project Stages
 4. Graph Embedding and Node Classification with GNN model
 
 Corresponding Project Reports 
+- [Stage 1 Report](Stage 1 Report.pdf)
+- [Stage 2 Report](Stage 2 Report.pdf)
+- [Stage 3 Report](Stage 3 Report.pdf)
+- [Stage 4 Report](Stage 4 Report.pdf)
